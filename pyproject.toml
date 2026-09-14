@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "awreport"
+version = "0.1.0"
+description = "File structured bug reports and feature requests to GitHub, with automatic redaction and deduplication"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "AitherOS Contributors", email = "dev@aitherium.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+]
+
+[project.scripts]
+awreport = "awreport.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "." }
+packages = ["awreport"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-v --tb=short"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]  # line length handled by formatter
