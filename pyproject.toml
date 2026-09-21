@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "awreport"
-version = "0.1.0"
+version = "0.2.0"
 description = "File structured bug reports and feature requests to GitHub, with automatic redaction and deduplication"
 readme = "README.md"
 license = { text = "Apache-2.0" }

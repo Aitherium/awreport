@@ -80,10 +80,48 @@ def main() -> int:
     token = args.token or os.getenv("GITHUB_TOKEN")
     repo = args.repo or os.getenv("GITHUB_REPO")
 
+    # NO GITHUB CREDENTIALS -> the HOSTED intake, not an error.
+    #
+    # Measured 2026-09-20: every path here demanded the caller's own
+    # GITHUB_TOKEN and GITHUB_REPO, which a customer who just ran
+    # `pip install awreport` does not have. So "tell us what broke" either
+    # failed outright or filed into the customer's OWN repository, where the
+    # people who could fix it never saw it. The platform already had the
+    # receiving half -- Genesis /feedback/bug-report stores a Strata record,
+    # opens a support ticket and emits a Flux event that the triage routines
+    # already consume. Nothing connected the two. This is that wire.
+    #
+    # GitHub stays the path for people who DO keep a repo: explicit
+    # --token/--repo, or the env vars, still win.
     if not token or not repo:
+        from . import hosted
+
+        if args.command == "verify":
+            if hosted.available():
+                print(
+                    "No GitHub credentials, and that is fine: reports will be filed "
+                    f"with Aitherium support via {hosted.base_url()}."
+                )
+                return 0
+            print(
+                "No GitHub credentials and no Aitherium credential either.\n"
+                "  - to file with Aitherium: set AITHER_TOKEN (or sign in)\n"
+                "  - to file into your own repo: set GITHUB_TOKEN and GITHUB_REPO",
+                file=sys.stderr,
+            )
+            return 1
+
+        if args.command in ("bug", "feature", "feedback"):
+            title = getattr(args, "title", "") or ""
+            description = getattr(args, "description", "") or getattr(args, "message", "") or ""
+            ok, message = hosted.submit(args.command, title, description)
+            print(message if ok else f"Error: {message}", file=sys.stdout if ok else sys.stderr)
+            return 0 if ok else 1
+
         print(
             "Error: --token and --repo required "
-            "(or set GITHUB_TOKEN and GITHUB_REPO env vars)",
+            "(or set GITHUB_TOKEN and GITHUB_REPO env vars, "
+            "or AITHER_TOKEN to file with Aitherium support)",
             file=sys.stderr,
         )
         return 1
