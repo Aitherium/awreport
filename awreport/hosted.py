@@ -28,8 +28,10 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
-# The Veil app surface. NOT portal.* (retired) and NOT the apex (static Pages).
-DEFAULT_BASE_URL = "https://desktop.aitherium.com"
+# The Veil app surface: app.aitherium.com, the one live page host (hostname
+# consolidation 2026-10-04; desktop.* is a 307 alias of it). NOT portal.* (retired)
+# and NOT the apex (static Pages, 405 on POST).
+DEFAULT_BASE_URL = "https://app.aitherium.com"
 BUG_PATH = "/api/feedback/bug-report"
 BEARER_FILE = Path.home() / ".aither" / "session-bearer"
 
