@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1",
+  "name": "awreport",
+  "description": "File a bug report that has already scrubbed your secrets and collapsed the duplicate.",
+  "url": "https://aitherium.github.io/awreport/",
+  "repository": "https://github.com/Aitherium/awreport",
+  "kind": "tool",
+  "status": "no-pages",
+  "adopt": "Turn a failure into a filed, redacted GitHub issue that collapses into the duplicate when one exists.",
+  "pairs_with": [],
+  "includes": [],
+  "metrics": {
+    "files": {
+      "value": 28,
+      "as_of": "2026-11-08T07:11:35-08:00"
+    },
+    "tests": {
+      "value": 7,
+      "as_of": "2026-11-08T07:11:35-08:00"
+    }
+  }
+}
