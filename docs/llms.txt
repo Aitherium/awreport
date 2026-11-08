@@ -1,0 +1,23 @@
+# awreport
+
+> File a bug report that has already scrubbed your secrets and collapsed the duplicate.
+
+A bug report is the artifact most likely to carry a credential -- logs, a config dump, an env var someone exported to reproduce the fault -- and the person writing it is already frustrated and will not read it twice. So the secret ships, or the report never gets filed at all.
+
+## Install
+
+```
+pip install awreport
+```
+
+## Use it in 30 seconds
+
+Turn a failure into a filed, redacted GitHub issue that collapses into the duplicate when one exists.
+
+## Where it lives
+
+- Repo: https://github.com/Aitherium/awreport
+
+This repository is mirrored from the AitherOS monorepo by `.github/workflows/sync-awreport.yml`; hand edits made here are overwritten on the next sync — change the source instead.
+
+Everything Aitherium, in one file for agents: https://aitherium.com/llms.txt
