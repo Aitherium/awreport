@@ -17,6 +17,8 @@ Turn a failure into a filed, redacted GitHub issue that collapses into the dupli
 ## Where it lives
 
 - Repo: https://github.com/Aitherium/awreport
+- Docs: https://aitherium.github.io/awreport/
+- Manifest (keys + the one-line adoption story): https://aitherium.github.io/awreport/aither-manifest.json
 
 This repository is mirrored from the AitherOS monorepo by `.github/workflows/sync-awreport.yml`; hand edits made here are overwritten on the next sync — change the source instead.
 
