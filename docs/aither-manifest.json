@@ -8,5 +8,15 @@
   "status": "public",
   "adopt": "Turn a failure into a filed, redacted GitHub issue that collapses into the duplicate when one exists.",
   "pairs_with": [],
-  "includes": []
+  "includes": [],
+  "metrics": {
+    "files": {
+      "value": 33,
+      "as_of": "2026-11-08T07:46:23-08:00"
+    },
+    "tests": {
+      "value": 7,
+      "as_of": "2026-11-08T07:46:23-08:00"
+    }
+  }
 }
