@@ -25,8 +25,16 @@ def main() -> int:
         _sv = locals().get("argv")
         if _aw_state.cli_banner(_sv if _sv is not None else __import__("sys").argv[1:]):
             return 0
+    from . import __version__
+
     parser = argparse.ArgumentParser(
-        description="File structured bug reports and feedback to GitHub"
+        prog="awreport",
+        description="File structured bug reports and feedback to GitHub",
+    )
+    parser.add_argument("--version", action="version", version=f"awreport {__version__}")
+    parser.add_argument(
+        "--self-test", "--selftest", dest="self_test", action="store_true",
+        help="run offline awreport redaction self-test",
     )
 
     # Required arguments
@@ -74,6 +82,16 @@ def main() -> int:
     subparsers.add_parser("verify", help="Verify GitHub access")
 
     args = parser.parse_args()
+    if getattr(args, "self_test", False):
+        from .redact import Redactor
+
+        red = Redactor()
+        out = red.redact_string("token AKIA1234 and ghp_short ok")
+        if "AKIA1234" in out or "ghp_short" in out or "ok" not in out:
+            print(f"awreport --self-test FAIL: {out!r}", file=sys.stderr)
+            return 1
+        print("awreport --self-test OK")
+        return 0
 
     # Load credentials
     import os
